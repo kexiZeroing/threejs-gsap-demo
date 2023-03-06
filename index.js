@@ -2,7 +2,7 @@ import * as THREE from "https://cdn.skypack.dev/three@0.125.0";
 import { gsap } from 'https://cdn.skypack.dev/gsap@3.11.0';
 import { GLTFLoader } from "https://cdn.skypack.dev/three@0.125.0/examples/jsm/loaders/GLTFLoader";
 import { ScrollTrigger } from "https://cdn.skypack.dev/gsap@3.11.0/ScrollTrigger";
-// import { OrbitControls } from 'https://cdn.skypack.dev/three@0.125.0/examples/jsm/controls/OrbitControls.js'
+import { OrbitControls } from 'https://cdn.skypack.dev/three@0.125.0/examples/jsm/controls/OrbitControls.js'
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -89,15 +89,21 @@ const onResize = () => {
 window.addEventListener('resize', onResize)
 onResize();
 
-// control helper
-// const controls = new OrbitControls( camera, renderer.domElement );
-// controls.autoRotate = true;
+// OrbitControls
+const controls = new OrbitControls(camera, renderer.domElement);
+// controls.mouseButtons = {
+// 	LEFT: THREE.MOUSE.ROTATE,
+// 	RIGHT: THREE.MOUSE.PAN
+// }
+controls.enableZoom = false;
+// controls.enableRotate = false;
+controls.enablePan = false;
 
 // --- TICK
 
 const tick = () => {
   camera.lookAt(cameraTarget);
-	// controls.update();
+	controls.update();
   renderer.render(scene, camera);
   window.requestAnimationFrame(() => tick())
 }
